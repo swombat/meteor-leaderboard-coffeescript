@@ -1,0 +1,55 @@
+<head>
+  <title>Leaderboard</title>
+</head>
+
+<body>
+  <div id="outer">
+    {{> leaderboard}}
+  </div>
+</body>
+
+<template name="leaderboard">
+  <div class="leaderboard">
+    <div style="float: left">
+      Sort by:
+      {{#if sort_by_name}}
+        <b>Name</b> | <a href="#" id="sort_by_score">Score</a>
+      {{else}}
+        <a href="#" id="sort_by_name">Name</a> | <b>Score</b>
+      {{/if}}
+    </div>
+    <div style="float: right">
+      <input class="reset" type="button" value="Reset Scores"/>
+    </div>
+    <div style="clear: both"/>
+    {{#each players}}
+      {{> player}}
+    {{/each}}
+  </div>
+
+  {{#if selected_name}}
+  <div class="details">
+    <div class="name">{{selected_name}}</div>
+    <input type="button" class="inc" value="Give 5 points" />
+  </div>
+  {{/if}}
+
+  {{#unless selected_name}}
+  <div class="none">Click a player to select</div>
+  {{/unless}}
+
+  <div class="new_scientist">
+    <input type="text" name="name" value="New Scientist"/>
+    <input type="submit" value="Add" name="add"/>
+  </div>
+
+</template>
+
+<template name="player">
+  <div class="player {{selected}}">
+    <span class="name">{{name}}</span>
+    <span class="score">{{score}}</span>
+    <a href="#" class="delete" {{#unless selected}}style="display:none"{{/unless}}>delete</a>
+  </div>
+</template>
+
